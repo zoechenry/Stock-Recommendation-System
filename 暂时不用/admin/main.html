@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="js/jquery-1.9.1.min.js"></script>
+
+</head>
+<body>
+	<div style="overflow: hidden;clear: both;border-bottom: 1px solid black">
+		<div id="cha" style="text-align: center;line-height: 50px;float: left;width: 49.5%">
+			查询
+		</div>
+		<div  style="width: 0.1%;height: 50px;background: black;float: left;"></div>
+		<div id="tui" style="text-align: center;line-height: 50px;float: left;width: 49.5%">
+			股票推荐
+		</div>
+		<iframe id="iframe1" style="display: none;width: 100vw;height: 100vh;border: none;" src="more.html"></iframe>
+		<iframe id="iframe2" style="display: none;width: 100vw;height: 100vh;border: none;" src="list.html"></iframe>
+	</div>
+	<script type="text/javascript">
+		$('#cha').click(function(){
+			$('#iframe1').hide()
+			$('#iframe2').hide()
+			$('#iframe1').show()
+
+		})
+		$('#tui').click(function(){
+			$('#iframe1').hide()
+			$('#iframe2').hide()
+			$('#iframe2').show()
+
+		})
+	</script>
+</body>
+</html>

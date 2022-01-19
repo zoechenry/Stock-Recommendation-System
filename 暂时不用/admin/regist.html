@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta http-equiv="Expires" content="0">
+		<title>股票预测系统</title>
+		<link href="login.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<div class="login_box">
+			<div class="login_l_img"><img src="images/bg2.png" /></div>
+			<div class="login">
+				<div class="login_logo">
+					<a href="#"><img src="images/login_logo.png" /></a>
+				</div>
+				<div class="login_name">
+					<p>股票预测系统</p>
+				</div>
+				<form method="post" id="zhuce">
+					<input id="ZhangHao" name="ZhangHao" type="text" placeholder="请输入用户名">
+					<input id="MiMa" name="MiMa" type="password" placeholder="请输入密码">
+
+					<input value="注册" style="width:100%;" type="button" onclick="zhuce()">
+					<a href="index.html" style="float: right;margin-top: 15px">登录</a>
+				</form>
+			</div>
+			<div class="copyright">股票预测系统有限公司版权所有</div>
+		</div>
+		<script src="jsv/bmob-min.js"></script>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/Convert_Pinyin.js"></script>
+
+		<script type="application/javascript">
+					var dic = {}
+		var nname = ''
+		function zhuce(){
+			if($('#ZhangHao').val()==''||$('#MiMa').val()==''){
+				alert("请完善信息");
+				return
+			}
+			var a = $("#zhuce").serializeArray()
+			for(var i in a){
+				var d = a[i]
+				dic[d["name"]]=d["value"]
+			}
+			nname=dic["ZhangHao"]
+
+			var dic2 = {}
+			dic2["table"]=pinyin.getFullChars("用户管理")
+			dic2["database"]='admin'
+			$.get('http://localhost:9997/getdata',dic2,function(data){
+				var arr =  JSON.parse(data).data
+				for(var i in arr){
+					var d = arr[i]
+					if (d["ZhangHao"]==nname) {
+						alert("用户已存在")
+						return
+					}
+				}
+
+				var a = $("#zhuce").serializeArray()
+				dic = {}
+				for(var i in a){
+					var d = a[i]
+					dic[d["name"]]=d["value"]
+				}
+				dic["JiaoSe"]="用户"
+				dic["table"]=pinyin.getFullChars("用户管理")
+				dic["database"]='admin'
+				var t = JSON.stringify(dic)
+				$.post('http://localhost:9997/savedata',t,function(data){
+					alert('注册成功')
+					location.href="index.html"
+				})
+			})
+
+
+			
+		}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript" src="/static/js/jquery-2.1.4.js"></script>
+</head>
+<body>
+	<input type="text" name="" placeholder="股票代码" id="code" value="603369" />
+	<button onclick="yuce()">预测</button>
+	<script type="text/javascript">
+		function yuce(){
+			$.post('/predict', JSON.stringify({'code':$('#code').val()}),function(d){
+				alert(JSON.stringify(d))
+			})
+		}
+	</script>
+</body>
+</html>

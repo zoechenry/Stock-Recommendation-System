@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>管理</title>
+		<style type="text/css">
+			.btn {
+				height: 60px;
+				width: 120px;
+				background: RGB(239, 100, 98);
+				color: white;
+				margin: 0 auto;
+				display: block;
+				/*position: absolute;
+				width: 200px;
+				left: 50%;*/
+				/*margin-left: 50%;*/
+			}
+			
+			.content {
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<input type="button" value="用户管理" id="yonghu2" class="btn">
+		</div>
+		
+
+		<script src="/static/js/jquery-1.9.1.min.js"></script>
+		<script>
+			$("#yonghu2").click(function() {
+				window.localStorage.setItem('name', '用户管理')
+				window.localStorage.setItem('key', 'user')
+				var list = ["姓名", "密码"];
+				var idlist = ["name", "pwd"];
+				var dic = []
+				for(var i = 0; i < idlist.length; i++) {
+					dic.push({
+						'name': list[i],
+						'key': idlist[i]
+					})
+				}
+				window.localStorage.setItem('data', JSON.stringify(dic))
+				location.href = "{{url_for('user_management')}}"
+
+			})
+			
+		</script>
+	</body>
+
+</html>

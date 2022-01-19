@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="/static/css/mui.min.css" rel="stylesheet"/>
+	<style type="text/css">
+		td {
+			border: 1px solid lightgray;
+		}
+		
+		.item {
+			float: left;
+			width: 6.6%;
+			height: 60px;
+			font:bold;
+		}
+	</style>
+</head>
+
+<body>
+<!-- 		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">检索更多</h1>
+			<a id="sousuo" onclick="sousuo()" class="mui-icon mui-icon-search mui-pull-right" style="color:white;"></a>
+
+		</header> -->
+		<div style="overflow: hidden;clear: both;border-bottom: 1px solid black">
+			<div style="text-align: center;line-height: 50px;float: left;width: 49.5%">
+				<a href="#" style='text-decoration: none'>查询</a>
+			</div>
+			<div  style="width: 0.1%;height: 50px;background: black;float: left;"></div>
+			<div style="text-align: center;line-height: 50px;float: left;width: 49.5%">
+				<a href="{{url_for('list')}}" style='text-decoration: none'>股票推荐</a>
+			</div>
+		</div>
+		<div class="mui-content">
+			<span>输入股票代码</span>
+			<input id="tf" type="text" name="">
+			<button id="cha">查询</button>
+			<div id="content"></div>
+		</div>
+		<script src="/static/js/jquery-2.1.4.js"></script>
+		<script src="/static/js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+
+			$('#cha').click(function(){
+				var code = $('#tf').val()
+				$('#content').html('')
+				$('#content').append('<p>当前查询的股票代码是：' + code + '</p>')
+				$.ajax({
+					type: "post",
+					url: "http://127.0.0.1:9997/predict",
+					data: JSON.stringify({
+						"code": code
+					}),
+					async: false,
+					success: function(data) {
+						data = JSON.parse(data)
+								$('#content').append('<p>现价：' + data.oldPrice + '</p>')
+								$('#content').append('<p>预测价：' + data.price + '</p>')
+								$('#content').append('<button id="chakan">下载查看更多历史</button>')
+								$('#chakan').click(function() {
+									window.open('http://127.0.0.1:9997/download')
+								})
+							},
+					error:function(xhr,textStatus,errorThrown){
+						$('#content').append('<p>数据有误</p>')
+					}
+						});
+			})
+
+			function sousuo() {
+				var btnArray = ['取消', '确定'];
+				mui.prompt('请输入要搜索内容：', '股票代码', '提示', btnArray, function(e) {
+					if(e.index == 1) {
+						var city = e.value;
+						$.ajax({
+							type: "post",
+							url: "http://127.0.0.1:9997/predict",
+							data: JSON.stringify({
+								"code": city
+							}),
+							async: false,
+							success: function(data) {
+								data = JSON.parse(data)
+								$('.mui-content').html('')
+								$('.mui-content').append('<p>现价：' + data.oldPrice + '</p>')
+								$('.mui-content').append('<p>预测价：' + data.price + '</p>')
+								$('.mui-content').append('<button id="chakan">下载查看更多历史</button>')
+								$('#chakan').click(function() {
+									window.open('http://127.0.0.1:9997/download')
+								})
+							}
+						});
+					} else {
+						//                      info.innerText = '你点了取消按钮';
+					}
+				})
+			}
+		</script>
+	</body>
+
+	</html>

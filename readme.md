@@ -1,5 +1,5 @@
-# A Stock-Recommendation Systerm
-Hello! This is a stock recommendation system designed to recommend the top-performing stocks to investors on WeChat Mini Program.
+# A Stock Selection Model
+Hello! This is a stock selection model designed to recommend the top-performing stocks to investors on WeChat Mini Program.
 
 # Overview
 For the recommendation algorithms:
